@@ -1,16 +1,18 @@
 # Azure SOC and Honeypot Implementation
 
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ## Overview
+This project demonstrates the implementation of a basic Security Operations Center (SOC) and a honeypot environment within Microsoft Azure.
 
-This project demonstrates the implementation of a basic Security Operations Center (SOC) and a honeypot environment within Microsoft Azure. The goal was to gain practical experience in:
+## Lab Breakdown
 
-* Deploying and configuring Azure Virtual Machines.
-* Setting up a low-interaction honeypot.
-* Integrating Azure logs with Microsoft Sentinel (Azure SIEM).
-* Creating custom detection rules and alerts in Sentinel.
-* Performing basic log analysis and threat hunting.
+This repository is organized into sections corresponding to the parts of the lab:
 
-This project was inspired by a YouTube tutorial [Link to the YouTube video you followed].
+* **part1-azure-setup/:** Notes on the initial Azure subscription setup.
+* **part2-honeypot-vm/:** Details on creating the Windows 10 honeypot virtual machine and configuring its Network Security Group.
+* **part3-log-inspection/:** Evidence of inspecting local security logs on the honeypot VM.
+* **part4-log-forwarding-kql/:** Steps taken to set up the Log Analytics Workspace, Sentinel instance, configure the log connector, and initial KQL queries.
+* **part5-log-enrichment-geoip/:** Implementation of the GeoIP watchlist and KQL query for enriching logs with location data.
+* **part6-attack-map/:** The creation of a basic attack map in Sentinel Workbook.
+* **screenshots/:** all relevant screenshots.
 
 ## Technologies Used
 
@@ -18,30 +20,39 @@ This project was inspired by a YouTube tutorial [Link to the YouTube video you f
     * Azure Virtual Machines
     * Microsoft Sentinel
     * Azure Monitor Logs
-    * [Mention any other Azure services you used]
-* **Honeypot Software:** [Specify the honeypot software you used, e.g., Cowrie, Modern Honey Network (MHN)]
-* **Scripting (Optional):** [Mention any scripting languages used, e.g., PowerShell, Python]
+* **Scripting :** Kusto Query Language (KQL)
+
 
 ## Architecture
 
-[Include a visual representation of your Azure architecture here. You can:
-* Embed an image from your `screenshots/` folder: `![Azure Architecture](screenshots/architecture.png)`
-* Use a tool like draw.io or Azure Diagram to create a diagram and save it as an image.]
-
+* Create a Resource Group and inside the resource group create Virtual Network.
+* Create a Virtual Machine 'CORP-NET-EAST-2' and attach it to Virtual Network.
+* Create Network Security Group and change the configuration so that VM is widely open to public internet.
+* Create log Analytic Workspace and connect it to both Microsoft Sentinel(SIEM) and Virtual Machine.
 This diagram illustrates the flow of logs from the Azure Virtual Machine (including the honeypot logs) into Azure Monitor Logs and subsequently into Microsoft Sentinel for analysis and alerting.
 
-## Setup and Configuration
+## Lab Objectives
 
-[Provide a high-level overview of the steps involved in setting up your project. You don't need to provide exact step-by-step instructions unless they are crucial and concise. Focus on the key components.]
+The key objectives of this lab were to gain practical experience in:
 
-1.  Deployed an Azure Virtual Machine to host the honeypot.
-2.  Installed and configured [Honeypot Software Name] on the VM.
-3.  Configured Azure Diagnostics to collect relevant logs from the VM and send them to Azure Monitor Logs.
-4.  Onboarded the Azure subscription and the relevant log sources to Microsoft Sentinel.
-5.  Created custom analytics rules in Sentinel to detect potential malicious activity based on honeypot logs and other Azure logs.
-6.  [Mention any other significant configuration steps]
-
-**For more detailed information on the setup of specific components, refer to the `documentation/` folder.**
+* Creating and configuring Azure Virtual Machines for a honeypot.
+* Managing Network Security Group rules for network access.
+* Inspecting Windows Event Logs for security-related events.
+* Setting up an Azure Log Analytics Workspace for centralized log storage.
+* Deploying and connecting Microsoft Sentinel to the Log Analytics Workspace.
+* Configuring log connectors to ingest Windows Security Events.
+* Querying and analyzing logs using Kusto Query Language (KQL).
+* Enriching logs with geographic location data using Sentinel Watchlists.
+* Creating a basic attack map visualization in Sentinel Workbooks.
+* Understanding the process of setting up a basic honeypot in Azure.
+* Gaining experience with Azure Log Analytics Workspace as a central log repository.
+* Learning how to deploy and connect Microsoft Sentinel to a Log Analytics Workspace.
+* Practical application of configuring log connectors for ingesting security events.
+* Developing skills in querying and analyzing logs using Kusto Query Language (KQL).
+* Understanding the concept of log enrichment using Sentinel Watchlists to add valuable context (like geographic location).
+* Basic introduction to creating visualizations like attack maps in Sentinel Workbooks.
+  
+This project was inspired by a YouTube tutorial [https://youtu.be/g5JL2RIbThM].
 
 ## Log Analysis and Detections
 
@@ -56,23 +67,6 @@ For example, I created a Sentinel analytic rule to detect SSH brute-force attemp
 [Describe the activity you observed on your honeypot. What kind of attacks or probes did it attract? Include screenshots or summaries of the captured data (be mindful of any sensitive information).]
 
 The honeypot captured several attempts to connect via SSH and various probes looking for common vulnerabilities. [Optional: Include a screenshot of your honeypot logs or a summary table].
-
-## Lessons Learned
-
-[Share your key takeaways from this project. What did you learn about Azure security, SIEM, honeypots, and log analysis?]
-
-* Understanding the importance of early threat detection using honeypots.
-* Gaining practical experience with Microsoft Sentinel's capabilities for log ingestion, correlation, and alerting.
-* Learning how to write effective KQL queries for security analysis.
-* [Mention any challenges you faced and how you overcame them.]
-
-## Next Steps (Optional)
-
-[If you plan to expand on this project, mention your future goals.]
-
-* Implement automated response playbooks in Sentinel.
-* Integrate additional data sources into Sentinel.
-* Deploy a more sophisticated, high-interaction honeypot.
 
 ## Author
 
